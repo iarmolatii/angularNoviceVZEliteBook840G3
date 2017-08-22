@@ -23,11 +23,13 @@
     function Todo($scope,model,todoService) {
         $scope.todo = model;
         $scope.incompleteCount = todoService.incompleteCount;
+        $scope.warningLevel = todoService.warningLevel;
     }
 
     function todoService() {
         return {
-            incompleteCount
+            incompleteCount,
+            warningLevel
         };
 
         function incompleteCount(items) {
@@ -37,6 +39,10 @@
             });
 
             return count;
+        };
+
+        function warningLevel(items) {
+            return incompleteCount(items) < 3 ? "label-success" : "label-warning";
         };
     }
 })();

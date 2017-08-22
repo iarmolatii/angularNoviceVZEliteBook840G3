@@ -13,7 +13,9 @@
 			<h1>
                <!-- <img class="photo" src="images/VZ.jpg">-->
                 <img class="photo" src="{{todo.userPhoto}}">
-                {{::todo.user}}'s ToDo List <span class="label label-default" ng-if="incompleteCount(todo.items) !== 0">{{incompleteCount(todo.items)}}</span>
+                {{::todo.user}}'s ToDo List
+                <span class="label label-default" ng-if="incompleteCount(todo.items) !== 0" ng-class="warningLevel(todo.items)">
+                    {{incompleteCount(todo.items)}}</span>
 			</h1>
 		</div>
 		<div class="panel">
