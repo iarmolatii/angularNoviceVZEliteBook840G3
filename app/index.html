@@ -7,13 +7,13 @@
 	<link href="vendor/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 </head>
-<body>
+<body ng-cloak>
 	<div class="container">
 		<div class="page-header">
 			<h1>
                <!-- <img class="photo" src="images/VZ.jpg">-->
                 <img class="photo" src="{{todo.userPhoto}}">
-				{{::todo.user}}'s ToDo List
+                {{::todo.user}}'s ToDo List <span class="label label-default" ng-if="incompleteCount(todo.items) !== 0">{{incompleteCount(todo.items)}}</span>
 			</h1>
 		</div>
 		<div class="panel">
@@ -30,6 +30,8 @@
 			</form>
 		</div>
 
+<span><input type="checkbox" ng-model="hideCompleted"/> Hide Completed</span>
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> To Do List
@@ -44,9 +46,10 @@
 						</tr>
 					</thead>
 					<tbody>
-                        <tr ng-repeat="item in todo.items">
+                        <tr ng-repeat="item in todo.items" ng-hide="hideCompleted && item.done">
                             <td>{{item.action}}</td>
-                            <td>{{item.done ? "Yes" : "No"}}</td>
+                            <td><input type="checkbox" ng-model="item.done"/></td>
+                            <!--<td>{{item.done ? "Yes" : "No"}}</td>-->
 						<!--<tr>
 							<td>Estimate...</td>
 							<td>No</td>
@@ -125,6 +128,7 @@
 		</div>
 	</div>
     <script src="vendor/angular/angular.min.js"></script>
+    <srcipt src="vendor/angular-sanitize/angular-sanitize.min.js"></srcipt>
     <script src="app.js"></script>
 </body>
 </html>

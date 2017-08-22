@@ -2,6 +2,7 @@
     "use strict";
     angular.module("app",[])
     .controller("Todo",Todo)
+    .factory("todoService",todoService)
     .value("model",{
         user:"Andrii",
         userPhoto:"https://s-media-cache-ak0.pinimg.com/736x/f7/c2/9f/f7c29f2b06f5eaef2b34aee656115b2b--lion-vector-porcelain-pens.jpg",
@@ -19,8 +20,23 @@
         ]
     });
 
-    function Todo($scope,model) {
+    function Todo($scope,model,todoService) {
         $scope.todo = model;
-        console.log($scope.todo);
+        $scope.incompleteCount = todoService.incompleteCount;
+    }
+
+    function todoService() {
+        return {
+            incompleteCount
+        };
+
+        function incompleteCount(items) {
+            let count = 0;
+            angular.forEach(items, (item) => {
+                if (!item.done) {count++;}
+            });
+
+            return count;
+        };
     }
 })();
